@@ -1,0 +1,32 @@
+{
+  "name": "z",
+  "version": "1.0.0",
+  "authors": [
+    "z"
+  ],
+  "description": "",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "libs",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "Swiper": "swiper#~3.3.1",
+    "angular": "~1.4.6",
+    "angular-aria": "~1.4.6",
+    "angular-base64": "~2.0.5",
+    "angular-local-storage": "~0.2.3",
+    "angular-ui-router": "~0.2.15",
+    "bootstrap": "~3.3.5",
+    "jquery": "~2.1.4"
+  },
+  "resolutions": {
+    "jquery": "~2.1.4",
+    "angular": "~1.4.6"
+  }
+}
