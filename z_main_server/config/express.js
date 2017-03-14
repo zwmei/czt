@@ -108,8 +108,8 @@ module.exports = function () {
 
   // Assume 404 since no middleware responded
   app.use(function (req, res, next) {
-    console.log('404 error');
-    return res.send('404 error');
+    console.log('404 error', req.method + ': ' + req.originalUrl);
+    return res.send('404 error ' + req.method + ': ' + req.originalUrl);
   });
 
   return app;
