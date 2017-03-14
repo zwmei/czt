@@ -21,8 +21,14 @@ module.exports = function () {
   app.engine('.html', ejs.__express);
   app.set('view engine', 'html');
 
+  //// Globbing model files
+  //config.getGlobbedFiles('./models/**/*.js').forEach(function (modelPath) {
+  //  require(path.resolve(modelPath));
+  //});
+
   // Passing the request url to environment locals
   app.use(function (req, res, next) {
+    //do something first
     next();
   });
 
@@ -38,7 +44,7 @@ module.exports = function () {
   app.set('showStackError', true);
 
   // Environment dependent middleware
-  if (process.env.NODE_ENV === 'development') {
+  if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'production-api') {
     // Enable logger (morgan)
     app.use(morgan('dev'));
 
@@ -48,13 +54,12 @@ module.exports = function () {
 
   // Request body parsing middleware should be above methodOverride
   app.use(bodyParser.urlencoded({
-    limit: '50mb',
-    parameterLimit:50000,
+    limit: "50mb",
+    parameterLimit: 50000,
     extended: true
   }));
-  app.use(bodyParser.json({limit: '50mb'}));
+  app.use(bodyParser.json({limit: "50mb"}));
   app.use(methodOverride());
-
 
   // Enable jsonp
   app.enable('jsonp callback');
@@ -73,18 +78,22 @@ module.exports = function () {
     next();
   });
 
-  app.use('/',express.static(path.resolve('../z_web_root')));
+  // Setting the app router and static folder
+  app.use(express.static(path.resolve('../z_web_root')));
 
   app.use(function (req, res, next) {
 
     // Environment dependent middleware
     if (process.env.NODE_ENV !== 'test') {
-      console.log(new Date().toLocaleString() + ' : ' + req.path + JSON.stringify(req.query) + JSON.stringify(req.body));
+      req.connection = req.connection ? req.connection : {};
+      var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+
+      console.log(new Date().toISOString() + ' ' + ip + ' : ' + req.path + JSON.stringify(req.body || {}) + JSON.stringify(req.query || {}));
     }
 
     if (req.path.slice(-1) === '/' && req.path.length > 1) {
       res.status(404).json({
-        error: {
+        err: {
           type: 'invalid_request_error',
           message: 'Unrecognized request URL (' +
           req.method + ': ' + req.originalUrl + ').'
@@ -95,23 +104,87 @@ module.exports = function () {
     }
   });
 
+
   // Globbing routing files
-  config.getGlobbedFiles('./routes/**/*.js').forEach(function (routePath) {
+  config.getGlobbedFiles('./routes/**/**/*.js').forEach(function (routePath) {
     require(path.resolve(routePath))(app);
   });
 
   // Assume 'not found' in the error msgs is a 500. this is somewhat silly, but valid, you can do whatever you like, set properties, use instanceof etc.
   app.use(function (err, req, res, next) {
-    console.log('500 error');
-    return next();
+    console.log(JSON.stringify(err));
+    async.auto({
+      RecordLogs: function (callback) {
+        return callback();
+      },
+      RecordError: function (callback) {
+        if (req.err) {
+          return callback(req.err);
+        }
+        else {
+          return callback();
+        }
+      },
+      GetData: function (callback, results) {
+        if (req.data) {
+          return callback(null, req.data);
+        } else {
+          return callback();
+        }
+      }
+    }, function (error, results) {
+      if (error)
+        return res.send(error);
+
+      if (results.GetData)
+        return res.send(results.GetData);
+
+      // If the error object doesn't exists
+      if (err)
+        console.error(err.stack);
+      return next();
+    });
   });
 
   // Assume 404 since no middleware responded
   app.use(function (req, res, next) {
-    return next();
+    async.auto({
+      RecordLogs: function (callback) {
+        return next();
+      },
+      RecordError: function (callback) {
+        if (req.err) {
+          return callback(req.err);
+        }
+        else {
+          return callback();
+        }
+      },
+      GetData: function (callback, results) {
+        if (req.data) {
+          return callback(null, req.data);
+        } else {
+          return callback();
+        }
+      }
+    }, function (error, results) {
+      if (error)
+        return res.send(error);
+
+      if (results.GetData)
+        return res.send(results.GetData);
+
+      res.status(404).json({
+        err: {
+          type: 'invalid_request_error',
+          message: 'Unrecognized request URL (' +
+          req.method + ': ' + req.originalUrl + ').'
+        }
+      });
+    });
+
+
   });
 
   return app;
 };
-
-
