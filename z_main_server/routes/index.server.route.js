@@ -7,5 +7,5 @@
 var index = require('../controllers/index');
 
 module.exports = function (app) {
-  app.route('/home').get(index.homePage);
+  app.route('/').get(index.homePage);
 };

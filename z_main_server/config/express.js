@@ -103,13 +103,7 @@ module.exports = function () {
   // Assume 'not found' in the error msgs is a 500. this is somewhat silly, but valid, you can do whatever you like, set properties, use instanceof etc.
   app.use(function (err, req, res, next) {
     console.log('500 error');
-    return res.send('500 error');
-  });
-
-  // Assume 404 since no middleware responded
-  app.use(function (req, res, next) {
-    console.log('404 error', req.method + ': ' + req.originalUrl);
-    return res.send('404 error ' + req.method + ': ' + req.originalUrl);
+    return next();
   });
 
   return app;
