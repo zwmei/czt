@@ -106,6 +106,11 @@ module.exports = function () {
     return next();
   });
 
+  // Assume 404 since no middleware responded
+  app.use(function (req, res, next) {
+    return next();
+  });
+
   return app;
 };
 
