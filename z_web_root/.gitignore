@@ -29,6 +29,7 @@ build/Release
 libs
 resource
 
+dist
 **/**/dist
 **/css
 **/index.html
