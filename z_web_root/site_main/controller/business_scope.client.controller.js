@@ -4,7 +4,7 @@
 
 'use strict';
 
-AgilePopsWeb.controller('BusinessScopeController',
+CZT.controller('BusinessScopeController',
   ['$rootScope', '$scope', 'GlobalEvent',
     function ($rootScope, $scope, GlobalEvent) {
     }

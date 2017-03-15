@@ -1,13 +1,80 @@
-body {
+html, body {
   width: 100%;
   height: 100%;
+  background: url('/resource/image/index/background.png') repeat;
 }
 
-body .agilepops-wrap {
+body .body-wrap {
   padding-top: 0;
+
+  a {
+    text-decoration: none;
+  }
+  li {
+    list-style: none;
+  }
 }
 
-.agilepops-wrap {
+
+@color-green: #7c9d63;
+@color-green-highlight: #81b02a;
+
+@site-max-width: 1205px;
+
+.body-wrap {
   overflow-y: auto;
   height: 100%;
+
+
+  .site-top-header {
+    margin:0 auto;
+    padding: 35px 0;
+    max-width: @site-max-width;
+
+    .left {
+      .logo {
+
+      }
+    }
+  }
+
+  .site-top-navbar {
+    background-color: @color-green;
+
+    .navbar-wrapper {
+      margin: 0 auto;
+      padding:0;
+      max-width: @site-max-width;
+      height: 60px;
+
+      .item {
+        display: inline-block;
+        float: left;
+        width: 125px;
+        height: 60px;
+        line-height: 60px;
+        color: #fff;
+        text-align: center;
+        font-size: 16px;
+        cursor: pointer;
+
+        &:hover, &.current {
+          background-color: @color-green-highlight;
+        }
+
+        a {
+          display: block;
+          height: 100%;
+          color: #fff;
+
+          img {
+          }
+        }
+
+        &.home {
+          width: 76px;
+        }
+      }
+    }
+  }
 }

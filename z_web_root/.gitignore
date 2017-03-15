@@ -27,6 +27,7 @@ build/Release
 .DS_Store
 
 libs
+resource
 
 **/**/dist
 **/css

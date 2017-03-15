@@ -1,34 +1,72 @@
 <!doctype html>
-<html>
+<html ng-app="CZT" lang="en">
 <head>
-  <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no,width=device-width"/>
   <meta charset="UTF-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no,width=device-width"/>
+  <meta name="keywords" content="存真堂,高碑店,古典家具行,北京高碑店,北京高碑店存真堂古典家具行">
+  <meta name="description" content="北京高碑店存真堂古典家具行1995年创立于中国首都北京。主要从事古典家具修缮销售及徽宅老屋异地搬迁复原为一体的专营店。">
+  <link rel="shortcut icon" href="/resource/image/index/czt_favicon.ico" type="image/x-icon">
 
   <script type='text/javascript' src="/libs/jquery/dist/jquery.min.js"></script>
   <script type='text/javascript' src="/libs/bootstrap/dist/js/bootstrap.min.js"></script>
   <script type='text/javascript' src="/libs/angular/angular.min.js"></script>
-
   <script type='text/javascript' src="/libs/angular-aria/angular-aria.min.js"></script>
-
   <script type='text/javascript' src="/libs/angular-ui-router/release/angular-ui-router.min.js"></script>
   <script type='text/javascript' src="/libs/angular-local-storage/dist/angular-local-storage.min.js"></script>
   <script type='text/javascript' src="/libs/angular-base64/angular-base64.min.js"></script>
-
   <link rel="stylesheet" href="/libs/bootstrap/dist/css/bootstrap.min.css">
-
   <link rel="stylesheet" href="/libs/Swiper/dist/css/swiper.min.css"/>
   <script src="/libs/Swiper/dist/js/swiper.jquery.min.js"></script>
 
-  <title>存真堂</title>
+  <script type="text/javascript" src="/site_main/dist/czt.js"></script>
+  <link rel="stylesheet" href="/site_main/dist/czt.css"/>
+
+  <title>北京高碑店存真堂古典家具行</title>
 </head>
-<body ng-click="onBodyClick($event)">
+<body ng-click="onBodyClick($event)" ng-controller="IndexController">
+<div class="body-wrap">
+  <div class="site-top-header">
+    <div class="left">
+      <img class="logo" src="/resource/image/index/logo.png">
+      <img class="title" src="/resource/image/index/company_name.png">
+    </div>
+  </div>
+  <div class="site-top-navbar">
+    <ul class="navbar-wrapper">
+      <li class="item home" ng-class="{current: isCurrentNavigation('home')}">
+        <a ui-sref="home">
+          <img src="/resource/image/index/home.png">
+        </a>
+      </li>
+      <li class="item" ng-class="{current: isCurrentNavigation('about_us')}">
+        <a ui-sref="about_us">
+          关于我们
+        </a>
+      </li>
+      <li class="item" ng-class="{current: isCurrentNavigation('success_case')}">
+        <a ui-sref="success_case">
+          成功案例
+        </a>
+      </li>
+      <li class="item" ng-class="{current: isCurrentNavigation('business_scope')}">
+        <a ui-sref="business_scope">
+          业务范围
+        </a>
+      </li>
+      <li class="item" ng-class="{current: isCurrentNavigation('news_info')}">
+        <a ui-sref="news_info">
+          新闻资讯
+        </a>
+      </li>
+      <li class="item" ng-class="{current: isCurrentNavigation('contact_us')}">
+        <a ui-sref="contact_us">
+          联系我们
+        </a>
+      </li>
+    </ul>
+  </div>
 
-<!--<div class="agilepops-wrap" scroll-bottom>-->
-  <!--<div ui-view class="main-view"></div>-->
-<!--</div>-->
-
-
-<div>欢迎来到存真堂</div>
-
+  <div ui-view class="site-main-view"></div>
+</div>
 </body>
 </html>

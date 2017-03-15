@@ -4,7 +4,6 @@
 
 'use strict';
 
-AgilePopsWeb.constant('GlobalEvent', {
-
+CZT.constant('GlobalEvent', {
   onBodyClick: 'onBodyClick'
 });
