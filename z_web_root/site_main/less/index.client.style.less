@@ -13,17 +13,24 @@ body .body-wrap {
   li {
     list-style: none;
   }
+  * {
+    margin:0;
+    padding: 0;
+  }
 }
 
 
 @color-green: #7c9d63;
 @color-green-highlight: #81b02a;
+@color-green-text: #5d8343;
 
 @site-max-width: 1205px;
 
 .body-wrap {
   overflow-y: auto;
   height: 100%;
+  min-width: @site-max-width;
+  overflow-x: auto;
 
 
   .site-top-header {
@@ -77,4 +84,69 @@ body .body-wrap {
       }
     }
   }
+
+  .site-bottom-navbar {
+    margin: 0 auto;
+    max-width: @site-max-width;
+    height: 220px;
+
+    .left {
+      float: left;
+      margin-right: 20px;
+
+      .item {
+        display: inline-block;
+        float: left;
+        width: 100px;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        color: @color-green-text;
+        border-right: 1px dashed @color-green-text;
+        cursor: pointer;
+        &:last-child {
+          border-right: none;
+        }
+      }
+    }
+    .right {
+      float: left;
+
+      .wechat-qrcode {
+        display: inline-block;
+        float: left;
+        margin-right: 20px;
+
+      }
+      .info {
+        display: inline-block;
+        float: left;
+
+        .item {
+          height: 30px;
+          line-height: 25px;
+          color: #666;
+          font-size: 12px;
+
+          &.name {
+            color: @color-green-text;
+            font-size: 14px;
+          }
+        }
+
+      }
+    }
+  }
+  
+  .site-footer {
+    padding: 20px 0;
+    color: #fff;
+    background-color: #7a7a7a;
+
+    .text {
+      margin: 0 auto;
+      max-width: @site-max-width;
+    }
+  }
+  
 }
