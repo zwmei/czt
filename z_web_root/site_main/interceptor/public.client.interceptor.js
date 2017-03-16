@@ -5,10 +5,9 @@ CZT.factory('PublicInterceptor', [function () {
     'request': function (req) {
       req.data = req.data ? req.data : {};
       req.params = req.params ? req.params : {};
-      //如果不是html请求，则取最新数据
-      if (req.url && req.url.indexOf('.html') === -1) {
-        req.params.no_cache = new Date().getTime();
-      }
+      req.params.no_cache = new Date().getTime();
+      req.params.access_token = new Date().getTime();
+
       return req;
     },
     'response': function (resp) {

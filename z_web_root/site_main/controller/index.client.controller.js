@@ -15,6 +15,10 @@ CZT.controller('IndexController',
 
       $scope.isCurrentNavigation = function (pathname) {
         return window.location.href.indexOf(pathname) > 0;
-      }
+      };
+
+      $scope.goTop = function () {
+        $(window).scrollTop(0);
+      };
     }
   ]);

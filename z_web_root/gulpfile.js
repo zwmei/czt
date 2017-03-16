@@ -20,7 +20,7 @@ function renderCss(callback) {
 }
 
 function renderJs(callback) {
-  gulp.src(['./site_main/**/*.js'])
+  gulp.src(['./site_main/config/*.js', './site_main/controller/*.js', './site_main/event/*.js', './site_main/interceptor/*.js'])
     .pipe(concat('czt.js'))
     .pipe(gulp.dest('./site_main/dist'))
     .on('finish', callback);
